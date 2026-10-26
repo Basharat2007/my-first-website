@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NeedLink Donation Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="app-header">
+    <nav class="nav">
+      <a class="brand" href="#" aria-label="NeedLink home">
+        <span class="brand-mark">N</span>
+        <span>NeedLink</span>
+      </a>
+      <div class="nav-actions">
+        <a href="#needs">Needs</a>
+        <a href="#tracking">Tracking</a>
+        <a href="#transparency">Transparency</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-content">
+        <p class="eyebrow">Transparent need-based donations</p>
+        <h1>Donate only what old-age homes actually need.</h1>
+        <p class="hero-copy">
+          NeedLink connects donors with verified requests, prevents duplicate or unnecessary donations,
+          tracks fulfilment, and shows exactly how resources are used.
+        </p>
+        <div class="hero-actions">
+          <a class="primary-btn" href="#needs">View Verified Needs</a>
+          <a class="secondary-btn" href="#submit-need">Submit Home Need</a>
+        </div>
+      </div>
+      <aside class="impact-panel" aria-label="Platform impact dashboard">
+        <div>
+          <span class="metric" id="metricFulfilled">0</span>
+          <span class="metric-label">Needs fulfilled</span>
+        </div>
+        <div>
+          <span class="metric" id="metricPrevented">0</span>
+          <span class="metric-label">Duplicate donations prevented</span>
+        </div>
+        <div>
+          <span class="metric" id="metricHomes">0</span>
+          <span class="metric-label">Old-age homes supported</span>
+        </div>
+      </aside>
+    </section>
+
+    <section class="section toolbar-section" id="needs">
+      <div class="section-heading">
+        <p class="eyebrow">Live verified requests</p>
+        <h2>Current Needs</h2>
+      </div>
+      <div class="toolbar" aria-label="Need filters">
+        <label>
+          <span>Category</span>
+          <select id="categoryFilter">
+            <option value="all">All categories</option>
+            <option value="Medical">Medical</option>
+            <option value="Food">Food</option>
+            <option value="Hygiene">Hygiene</option>
+            <option value="Comfort">Comfort</option>
+          </select>
+        </label>
+        <label>
+          <span>Priority</span>
+          <select id="priorityFilter">
+            <option value="all">All priorities</option>
+            <option value="High">High</option>
+            <option value="Medium">Medium</option>
+            <option value="Low">Low</option>
+          </select>
+        </label>
+        <label class="search-field">
+          <span>Search</span>
+          <input id="searchInput" type="search" placeholder="Search home or item">
+        </label>
+      </div>
+      <div class="needs-grid" id="needsGrid" aria-live="polite"></div>
+    </section>
+
+    <section class="section split-section" id="tracking">
+      <div>
+        <p class="eyebrow">Fulfilment tracking</p>
+        <h2>Every donation has a visible journey.</h2>
+        <p class="section-copy">
+          Donors can pledge a specific quantity against a verified requirement. The remaining quantity updates
+          immediately, so homes receive the right resources without oversupply.
+        </p>
+      </div>
+      <div class="timeline" id="timeline" aria-label="Donation fulfilment timeline"></div>
+    </section>
+
+    <section class="section transparency" id="transparency">
+      <div class="section-heading">
+        <p class="eyebrow">Utilisation transparency</p>
+        <h2>Resource Use Ledger</h2>
+      </div>
+      <div class="ledger-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Old-Age Home</th>
+              <th>Resource</th>
+              <th>Received</th>
+              <th>Used For</th>
+              <th>Proof</th>
+            </tr>
+          </thead>
+          <tbody id="ledgerBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="section submit-section" id="submit-need">
+      <div>
+        <p class="eyebrow">For old-age homes</p>
+        <h2>Submit a verified need</h2>
+        <p class="section-copy">Add a requirement with quantity, priority, and reason. The request appears in the donor list after verification.</p>
+      </div>
+      <form class="login-form" id="loginForm">
+        <p class="eyebrow">Home administrator login</p>
+        <h3>Log in to submit a need</h3>
+        <label>
+          <span>Login ID</span>
+          <input name="loginId" type="text" autocomplete="username" required>
+        </label>
+        <label>
+          <span>Password</span>
+          <input name="password" type="password" autocomplete="current-password" required>
+        </label>
+        <button class="primary-btn" type="submit">Login</button>
+        <p class="form-message" id="loginMessage" role="status"></p>
+      </form>
+
+      <form class="need-form" id="needForm" hidden>
+        <label>
+          <span>Home Name</span>
+          <input name="home" type="text" placeholder="Example: Sunrise Elder Care" required>
+        </label>
+        <label>
+          <span>Needed Item</span>
+          <input name="item" type="text" placeholder="Example: Adult diapers" required>
+        </label>
+        <div class="form-row">
+          <label>
+            <span>Quantity</span>
+            <input name="quantity" type="number" min="1" placeholder="50" required>
+          </label>
+          <label>
+            <span>Category</span>
+            <select name="category" required>
+              <option value="Medical">Medical</option>
+              <option value="Food">Food</option>
+              <option value="Hygiene">Hygiene</option>
+              <option value="Comfort">Comfort</option>
+            </select>
+          </label>
+        </div>
+        <label>
+          <span>Priority</span>
+          <select name="priority" required>
+            <option value="High">High</option>
+            <option value="Medium">Medium</option>
+            <option value="Low">Low</option>
+          </select>
+        </label>
+        <label>
+          <span>Reason</span>
+          <textarea name="reason" rows="4" placeholder="Briefly explain why this is required" required></textarea>
+        </label>
+        <button class="primary-btn" type="submit">Add Verified Need</button>
+        <p class="form-message" id="formMessage" role="status"></p>
+      </form>
+    </section>
+  </main>
+
+  <dialog id="donationDialog">
+    <form method="dialog" class="dialog-card" id="donationForm">
+      <button class="close-btn" value="cancel" aria-label="Close donation form">&times;</button>
+      <p class="eyebrow">Pledge donation</p>
+      <h2 id="dialogTitle">Donate</h2>
+      <input type="hidden" name="needId" id="needIdInput">
+      <label>
+        <span>Donor Name</span>
+        <input name="donor" type="text" placeholder="Your name" required>
+      </label>
+      <label>
+        <span>Quantity to Donate</span>
+        <input name="quantity" id="donationQuantity" type="number" min="1" required>
+      </label>
+      <label>
+        <span>Delivery Note</span>
+        <textarea name="note" rows="3" placeholder="Delivery date or contact detail" required></textarea>
+      </label>
+      <button class="primary-btn" value="confirm" type="submit">Confirm Pledge</button>
+      <p class="form-message" id="donationMessage" role="status"></p>
+    </form>
+  </dialog>
+
+  <script src="script.js"></script>
+</body>
+</html>
